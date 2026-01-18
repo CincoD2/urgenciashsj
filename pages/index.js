@@ -65,6 +65,20 @@ export default function Home() {
     CI: false
   });
 
+function resetFiltros() {
+  setFTipoTratamiento('');
+  setFTipoInhalador('');
+  setFAsma(false);
+  setFEpoc(false);
+  setFClases({
+    SABA: false,
+    SAMA: false,
+    LABA: false,
+    LAMA: false,
+    CI: false
+  });
+}
+
   /* ===== CARGA CSV ===== */
   useEffect(() => {
     Papa.parse(CSV_URL, {
@@ -134,72 +148,92 @@ export default function Home() {
   /* ===== RENDER ===== */
   return (
     <main style={{ padding: 24 }}>
-      <h1>Inhaladores</h1>
+      
+     {/* FILTROS */}
+<div className="filters">
 
-      {/* FILTROS */}
-      <div className="filters">
-        <div>
-          <label>Tipo tratamiento</label>
-          <select
-            value={fTipoTratamiento}
-            onChange={e => setFTipoTratamiento(e.target.value)}
-          >
-            <option value="">Todos</option>
-            <option value="Mono">Monoterapia</option>
-            <option value="Dual">Terapia dual</option>
-            <option value="Triple">Triple terapia</option>
-          </select>
-        </div>
+  {/* Tipo tratamiento (uno solo) */}
+  <div className="filtro-grupo">
+    <span className="filtro-titulo">Tipo tratamiento</span>
+    <div className="filtro-botones">
+      {['Mono', 'Dual', 'Triple'].map(v => (
+        <button
+          key={v}
+          className={`filtro-btn ${fTipoTratamiento === v ? 'activo' : ''}`}
+          onClick={() =>
+            setFTipoTratamiento(fTipoTratamiento === v ? '' : v)
+          }
+        >
+          {v}
+        </button>
+      ))}
+    </div>
+  </div>
 
-        <div>
-          <label>Tipo inhalador</label>
-          <select
-            value={fTipoInhalador}
-            onChange={e => setFTipoInhalador(e.target.value)}
-          >
-            <option value="">Todos</option>
-            <option value="pMDI">pMDI</option>
-            <option value="DPI">DPI</option>
-            <option value="Nebulizador">Nebulizador</option>
-          </select>
-        </div>
+  {/* Tipo inhalador (uno solo) */}
+  <div className="filtro-grupo">
+    <span className="filtro-titulo">Tipo inhalador</span>
+    <div className="filtro-botones">
+      {['pMDI', 'DPI', 'Nebulizador'].map(v => (
+        <button
+          key={v}
+          className={`filtro-btn ${fTipoInhalador === v ? 'activo' : ''}`}
+          onClick={() =>
+            setFTipoInhalador(fTipoInhalador === v ? '' : v)
+          }
+        >
+          {v}
+        </button>
+      ))}
+    </div>
+  </div>
 
-        <div>
-          <label>Indicación</label>
-          <label>
-            <input
-              type="checkbox"
-              checked={fAsma}
-              onChange={e => setFAsma(e.target.checked)}
-            />{' '}
-            Asma
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={fEpoc}
-              onChange={e => setFEpoc(e.target.checked)}
-            />{' '}
-            EPOC
-          </label>
-        </div>
+  {/* Indicación (múltiple) */}
+  <div className="filtro-grupo">
+    <span className="filtro-titulo">Indicación</span>
+    <div className="filtro-botones">
+      <button
+        className={`filtro-btn ${fAsma ? 'activo' : ''}`}
+        onClick={() => setFAsma(!fAsma)}
+      >
+        Asma
+      </button>
+      <button
+        className={`filtro-btn ${fEpoc ? 'activo' : ''}`}
+        onClick={() => setFEpoc(!fEpoc)}
+      >
+        EPOC
+      </button>
+    </div>
+  </div>
 
-        <div>
-          <label>Clases</label>
-          {Object.keys(fClases).map(c => (
-            <label key={c}>
-              <input
-                type="checkbox"
-                checked={fClases[c]}
-                onChange={e =>
-                  setFClases({ ...fClases, [c]: e.target.checked })
-                }
-              />{' '}
-              {c}
-            </label>
-          ))}
-        </div>
-      </div>
+  {/* Clases (múltiple) */}
+  <div className="filtro-grupo">
+    <span className="filtro-titulo">Clases</span>
+    <div className="filtro-botones">
+      {Object.keys(fClases).map(c => (
+        <button
+          key={c}
+          className={`filtro-btn ${fClases[c] ? 'activo' : ''}`}
+          onClick={() =>
+            setFClases({ ...fClases, [c]: !fClases[c] })
+          }
+        >
+          {c}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  {/* Reset */}
+  <div className="filtro-grupo">
+    <span className="filtro-titulo">&nbsp;</span>
+    <button className="filtro-btn" onClick={resetFiltros}>
+      Borrar filtros
+    </button>
+  </div>
+
+</div>
 
       <p>Total resultados: {filteredAndSortedData.length}</p>
 
@@ -266,14 +300,14 @@ export default function Home() {
   border-collapse: collapse;
   font-size: 14px;
   background: #ffffff;
-  table-layout: fixed;
+  table-layout: auto;
+  
 }
 
 /* Cabecera */
 .tabla-intranet thead th {
   background-color: #4f7f8a;   /* teal hospitalario */
   color: #ffffff;
-  text-align: left;
   padding: 10px 12px;
   font-weight: 600;
   border-bottom: 2px solid #3f6973;
@@ -285,12 +319,35 @@ export default function Home() {
   border-bottom: 1px solid #e5e7eb;
   vertical-align: top;
   color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Hover de fila */
 .tabla-intranet tbody tr:hover {
   background-color: #e3edef;   /* gris-azulado suave */
 }
+
+/* Botón Limpiar filtros */
+.filtro-reset {
+  display: flex;
+  align-items: flex-end;
+}
+
+.filtro-reset button {
+  padding: 6px 10px;
+  font-size: 13px;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.filtro-reset button:hover {
+  background: #e5e7eb;
+}
+
 
 /* Nombre */
 .nombre-cell {
@@ -382,7 +439,112 @@ export default function Home() {
 .filters input[type="checkbox"] {
   margin-right: 4px;
 }
+
+/* Contenedor filtros */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-bottom: 20px;
+}
+
+/* Grupo */
+.filtro-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Título */
+.filtro-titulo {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Botones */
+.filtro-botones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filtro-btn {
+  min-width: 90px;
+  padding: 8px 14px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #374151;
+  border: 2px solid #5a7f8a;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+/* Hover */
+.filtro-btn:hover {
+  background: #eef5f7;
+}
+
+/* Activo */
+.filtro-btn.activo {
+  background: #5a7f8a;
+  color: #ffffff;
+}
+/* ===== Anchos de columnas ===== */
+
+/* Nombre (la más ancha) */
+.tabla-intranet th:nth-child(1),
+.tabla-intranet td:nth-child(1) {
+  width: 38%;
+  text-align: left;
+}
+
+/* Principio activo */
+.tabla-intranet th:nth-child(2),
+.tabla-intranet td:nth-child(2) {
+  width: 18%;
+  text-align: left;
+  white-space: normal;
+}
+
+/* Dispositivo */
+.tabla-intranet th:nth-child(3),
+.tabla-intranet td:nth-child(3) {
+  width: 10%;
+  text-align: center;
+}
+
+/* Tipo inhalador */
+.tabla-intranet th:nth-child(4),
+.tabla-intranet td:nth-child(4) {
+  width: 8%;
+  text-align: center;
+}
+
+/* Indicación */
+.tabla-intranet th:nth-child(5),
+.tabla-intranet td:nth-child(5) {
+  width: 10%;
+  text-align: center;
+}
+
+/* Tipo tratamiento */
+.tabla-intranet th:nth-child(6),
+.tabla-intranet td:nth-child(6) {
+  width: 8%;
+  text-align: center;
+}
+
+/* Laboratorio */
+.tabla-intranet th:nth-child(7),
+.tabla-intranet td:nth-child(7) {
+  width: 18%;
+  text-align: left;
+}
+
 `}</style>
     </main>
   );
+  
 }
