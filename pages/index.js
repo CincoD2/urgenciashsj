@@ -303,6 +303,7 @@ function resetFiltros() {
 
 .tabla-intranet {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   font-size: 14px;
   background: #ffffff;
@@ -317,6 +318,11 @@ function resetFiltros() {
   padding: 10px 12px;
   font-weight: 600;
   border-bottom: 2px solid #3f6973;
+}
+
+.tabla-intranet th,
+.tabla-intranet td {
+  padding: 8px 6px;
 }
 
 /* Celdas */
@@ -388,6 +394,7 @@ function resetFiltros() {
   border-radius: 4px;
   font-size: 12px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 /* Indicaciones */
@@ -573,7 +580,7 @@ function resetFiltros() {
 
 /* Nombre: protagonista */
 .col-nombre {
-  width: 32%;
+  width: 30%;
   text-align: left;
 }
 
@@ -585,28 +592,29 @@ function resetFiltros() {
 
 /* Dispositivo */
 .col-dispositivo {
-  width: 10%;
+  width: 9%;
   text-align: center;
   white-space: nowrap;
 }
 
 /* Indicación */
 .col-indicacion {
-  width: 12%;
+  width: 11%;
   text-align: center;
   white-space: nowrap;
+  min-width:90px;
 }
 
 /* Tipo tratamiento */
 .col-tipo {
-  width: 10%;
+  width: 9%;
   text-align: center;
   white-space: nowrap;
 }
 
 /* Laboratorio */
 .col-lab {
-  width: 14%;
+  width: 19%;
   text-align: left;
 }
 
@@ -619,6 +627,26 @@ function resetFiltros() {
 .tabla-intranet thead th.col-dispositivo,
 .tabla-intranet thead th.col-indicacion,
 .tabla-intranet thead th.col-tipo {
+  text-align: center;
+}
+/* Laboratorio SIEMPRE a la izquierda */
+.tabla-intranet th.col-lab,
+.tabla-intranet td.col-lab {
+  text-align: left;
+}
+
+.tabla-intranet th.col-nombre,
+.tabla-intranet td.col-nombre,
+.tabla-intranet th.col-pa,
+.tabla-intranet td.col-pa {
+  text-align: left;
+}
+.tabla-intranet th.col-dispositivo,
+.tabla-intranet td.col-dispositivo,
+.tabla-intranet th.col-indicacion,
+.tabla-intranet td.col-indicacion,
+.tabla-intranet th.col-tipo,
+.tabla-intranet td.col-tipo {
   text-align: center;
 }
 
