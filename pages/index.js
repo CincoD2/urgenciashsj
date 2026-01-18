@@ -300,7 +300,7 @@ function resetFiltros() {
   border-collapse: collapse;
   font-size: 14px;
   background: #ffffff;
-  table-layout: auto;
+  table-layout: fixed;
   
 }
 
@@ -496,7 +496,7 @@ function resetFiltros() {
 /* Nombre (la más ancha) */
 .tabla-intranet th:nth-child(1),
 .tabla-intranet td:nth-child(1) {
-  width: 38%;
+  width: 32%;
   text-align: left;
 }
 
@@ -539,7 +539,7 @@ function resetFiltros() {
 /* Laboratorio */
 .tabla-intranet th:nth-child(7),
 .tabla-intranet td:nth-child(7) {
-  width: 18%;
+  width: 14%;
   text-align: left;
 }
 
