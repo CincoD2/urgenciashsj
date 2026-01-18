@@ -172,21 +172,28 @@ function resetFiltros() {
 
   {/* Tipo inhalador (uno solo) */}
   <div className="filtro-grupo">
-    <span className="filtro-titulo">Tipo inhalador</span>
-    <div className="filtro-botones">
-      {['pMDI', 'DPI', 'Nebulizador'].map(v => (
-        <button
-          key={v}
-          className={`filtro-btn ${fTipoInhalador === v ? 'activo' : ''}`}
-          onClick={() =>
-            setFTipoInhalador(fTipoInhalador === v ? '' : v)
-          }
-        >
-          {v}
-        </button>
-      ))}
-    </div>
+  <span className="filtro-titulo">Tipo inhalador</span>
+  <div className="filtro-botones">
+    {[
+      { value: 'pMDI', label: 'Presurizado' },
+      { value: 'DPI', label: 'Polvo seco' },
+      { value: 'Nebulizador', label: 'Nebulizador' }
+    ].map(opt => (
+      <button
+        key={opt.value}
+        className={`filtro-btn ${fTipoInhalador === opt.value ? 'activo' : ''}`}
+        onClick={() =>
+          setFTipoInhalador(
+            fTipoInhalador === opt.value ? '' : opt.value
+          )
+        }
+      >
+        {opt.label}
+      </button>
+    ))}
   </div>
+</div>
+
 
   {/* Indicación (múltiple) */}
   <div className="filtro-grupo">
