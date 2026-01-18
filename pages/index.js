@@ -503,7 +503,7 @@ function resetFiltros() {
 /* Nombre (la más ancha) */
 .tabla-intranet th:nth-child(1),
 .tabla-intranet td:nth-child(1) {
-  width: 36%;
+  width: 30%;
   text-align: left;
 }
 
@@ -527,7 +527,7 @@ function resetFiltros() {
 /* Indicación */
 .tabla-intranet th:nth-child(5),
 .tabla-intranet td:nth-child(5) {
-  width: 14%;
+  width: 18%;
   text-align: center;
 }
 
@@ -541,7 +541,7 @@ function resetFiltros() {
 /* Laboratorio */
 .tabla-intranet th:nth-child(7),
 .tabla-intranet td:nth-child(7) {
-  width: 10%;
+  width: 12%;
   text-align: left;
   line-height: 1.3;
 }
