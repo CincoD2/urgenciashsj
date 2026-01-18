@@ -266,6 +266,7 @@ export default function Home() {
   border-collapse: collapse;
   font-size: 14px;
   background: #ffffff;
+  table-layout: fixed;
 }
 
 /* Cabecera */
@@ -293,29 +294,27 @@ export default function Home() {
 
 /* Nombre */
 .nombre-cell {
-  max-width: 420px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .nombre-wrapper {
-  display: inline-flex;
+  display: block;          /* ← NO inline-flex */
   max-width: 100%;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nombre-marca {
   font-weight: 700;
   text-transform: uppercase;
-  margin-right: 4px;
 }
 
 .nombre-resto {
   font-weight: 400;
   text-transform: lowercase;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
-
 /* Badges (sobrios, intranet) */
 .badge {
   display: inline-block;
