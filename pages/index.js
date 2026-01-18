@@ -204,7 +204,7 @@ export default function Home() {
       <p>Total resultados: {filteredAndSortedData.length}</p>
 
       {/* TABLA */}
-      <table>
+      <table className="tabla-intranet">
         <thead>
           <tr>
             <th>Nombre</th>
@@ -259,52 +259,71 @@ export default function Home() {
       </table>
 
       <style jsx>{`
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          font-size: 14px;
-        }
-        th,
-        td {
-          border-bottom: 1px solid #ddd;
-          padding: 6px 8px;
-          vertical-align: top;
-        }
-        tr:hover {
-          background: #f5f7fa;
-        }
-        .filters {
-          display: flex;
-          gap: 24px;
-          margin-bottom: 16px;
-          flex-wrap: wrap;
-        }
-        .filters div {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-          font-size: 13px;
-        }
-        .nombre-cell {
-          max-width: 420px;
-        }
-        .nombre-wrapper {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: inline-block;
-          max-width: 100%;
-        }
-        
-        .badge {
-  display: inline-block;
-  padding: 2px 8px;
-  margin-right: 4px;
-  border-radius: 12px;
-  font-size: 11px;
+/* ---- TABLA ESTILO INTRANET ---- */
+
+.tabla-intranet {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: #ffffff;
+}
+
+/* Cabecera */
+.tabla-intranet thead th {
+  background-color: #4f7f8a;   /* teal hospitalario */
+  color: #ffffff;
+  text-align: left;
+  padding: 10px 12px;
   font-weight: 600;
-  line-height: 1.6;
+  border-bottom: 2px solid #3f6973;
+}
+
+/* Celdas */
+.tabla-intranet td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+  color: #111827;
+}
+
+/* Hover de fila */
+.tabla-intranet tbody tr:hover {
+  background-color: #e3edef;   /* gris-azulado suave */
+}
+
+/* Nombre */
+.nombre-cell {
+  max-width: 420px;
+}
+
+.nombre-wrapper {
+  display: inline-flex;
+  max-width: 100%;
   white-space: nowrap;
+}
+
+.nombre-marca {
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.nombre-resto {
+  font-weight: 400;
+  text-transform: lowercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Badges (sobrios, intranet) */
+.badge {
+  display: inline-block;
+  padding: 2px 6px;
+  margin-right: 4px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 /* Indicaciones */
@@ -315,18 +334,18 @@ export default function Home() {
 
 .badge-epoc {
   background: #fff4e5;
-  color: #b45309;
+  color: #92400e;
 }
 
 /* Tipo tratamiento */
 .badge-mono {
-  background: #e5e7eb;
+  background: #f3f4f6;
   color: #374151;
 }
 
 .badge-dual {
   background: #e0f2fe;
-  color: #0369a1;
+  color: #075985;
 }
 
 .badge-triple {
@@ -334,32 +353,37 @@ export default function Home() {
   color: #991b1b;
 }
 
-/* Clases */
-.badge-saba {
-  background: #e0f2fe;
-  color: #075985;
+/* Filtros */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 16px;
+  font-size: 13px;
 }
 
-.badge-sama {
-  background: #ecfdf5;
-  color: #065f46;
+.filters > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.badge-laba {
-  background: #dbeafe;
-  color: #1e40af;
+.filters label {
+  font-weight: 500;
 }
 
-.badge-lama {
-  background: #dcfce7;
-  color: #166534;
+/* Selects y checkboxes */
+.filters select {
+  padding: 4px 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 13px;
 }
 
-.badge-ci {
-  background: #f3e8ff;
-  color: #6b21a8;
+.filters input[type="checkbox"] {
+  margin-right: 4px;
 }
-      `}</style>
+`}</style>
     </main>
   );
 }
