@@ -228,7 +228,7 @@ function resetFiltros() {
   {/* Reset */}
   <div className="filtro-grupo">
     <span className="filtro-titulo">&nbsp;</span>
-    <button className="filtro-btn" onClick={resetFiltros}>
+    <button className="filtro-btn filtro-reset-btn" onClick={resetFiltros}>
       Borrar filtros
     </button>
   </div>
@@ -541,6 +541,25 @@ function resetFiltros() {
 /* Indicación: badges siempre visibles */
 .tabla-intranet td:nth-child(4) {
   white-space: nowrap;
+}
+
+/* ===== Botón BORRAR FILTROS ===== */
+
+.filtro-reset-btn {
+  background: #fee2e2;          /* rojo muy suave */
+  border-color: #ef4444;
+  color: #991b1b;
+  font-weight: 600;
+}
+
+/* Hover */
+.filtro-reset-btn:hover {
+  background: #fecaca;
+}
+
+/* Activo (click) */
+.filtro-reset-btn:active {
+  background: #fca5a5;
 }
 
 `}</style>
