@@ -122,7 +122,7 @@ export default function Home() {
             >
               <td>
                 {d.IMAGEN_URL ? (
-                  <img src={d.IMAGEN_URL} alt="" width="60" />
+                  <img src={d.IMAGEN_URL} alt=""  />
                 ) : (
                   ''
                 )}
