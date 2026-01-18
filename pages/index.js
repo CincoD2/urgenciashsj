@@ -239,12 +239,18 @@ export default function Home() {
                 <td>{d.DISPOSITIVO}</td>
                 <td>{d.DISPOSITIVO_INHALACION}</td>
                 <td>
-                  {[d['ASMA (FT 4.1)'] === 'Sí' ? 'Asma' : null,
-                    d['EPOC (FT 4.1)'] === 'Sí' ? 'EPOC' : null]
-                    .filter(Boolean)
-                    .join(', ')}
-                </td>
-                <td>{d.TIPO_TRATAMIENTO}</td>
+  {d['ASMA (FT 4.1)'] === 'Sí' && (
+    <span className="badge badge-asma">Asma</span>
+  )}
+  {d['EPOC (FT 4.1)'] === 'Sí' && (
+    <span className="badge badge-epoc">EPOC</span>
+  )}
+</td>
+                <td>
+  <span className={`badge badge-${d.TIPO_TRATAMIENTO?.toLowerCase()}`}>
+    {d.TIPO_TRATAMIENTO}
+  </span>
+</td>
                 <td>{d.labcomercializador}</td>
               </tr>
             );
@@ -289,6 +295,70 @@ export default function Home() {
           display: inline-block;
           max-width: 100%;
         }
+        
+        .badge {
+  display: inline-block;
+  padding: 2px 8px;
+  margin-right: 4px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+/* Indicaciones */
+.badge-asma {
+  background: #e6f4ea;
+  color: #137333;
+}
+
+.badge-epoc {
+  background: #fff4e5;
+  color: #b45309;
+}
+
+/* Tipo tratamiento */
+.badge-mono {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.badge-dual {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.badge-triple {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Clases */
+.badge-saba {
+  background: #e0f2fe;
+  color: #075985;
+}
+
+.badge-sama {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.badge-laba {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-lama {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-ci {
+  background: #f3e8ff;
+  color: #6b21a8;
+}
       `}</style>
     </main>
   );
