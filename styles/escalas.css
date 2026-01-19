@@ -7,6 +7,25 @@
   margin: 0 auto;
 }
 
+.escala-footer {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Contenedor del botón */
+.acciones-escala {
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+
+/* ===============================
+   CRITERIOS
+================================ */
+
 .criterios {
   display: flex;
   flex-direction: column;
@@ -14,7 +33,6 @@
   margin-bottom: 24px;
 }
 
-/* Botón criterio */
 .criterio-btn {
   display: flex;
   justify-content: space-between;
@@ -32,22 +50,42 @@
   background: #f9fafb;
 }
 
-/* Activo */
-.criterio-btn.activo {
-  background: #eef5f7;
-  border-color: #5a7f8a;
-}
-
-/* Criterio negativo */
-.criterio-btn.negativo.activo {
-  background: #fee2e2;
-  border-color: #ef4444;
-}
-
-/* Puntos */
 .criterio-btn .puntos {
   font-weight: 600;
   margin-left: 12px;
+}
+
+/* Criterios que SUMAN riesgo → ROJO */
+.criterio-btn.activo-rojo {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+/* Criterio que RESTA riesgo → VERDE */
+.criterio-btn.activo-verde {
+  background: #e6f4ea;
+  border-color: #22c55e;
+  color: #137333;
+}
+
+/* ===============================
+   BOTÓN RESET
+================================ */
+
+.reset-btn {
+  align-self: flex-start;
+  padding: 10px 16px;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.reset-btn:hover {
+  background: #e5e7eb;
 }
 
 /* ===============================
@@ -81,4 +119,83 @@
 
 .puntos-total {
   font-size: 18px;
+}
+
+/* ===============================
+   BLOQUE INFORME (tipo ChatGPT)
+================================ */
+
+.informe-wrapper {
+  margin-top: 20px;
+  position: relative;
+  border-radius: 12px;
+  background: #0f172a;
+  overflow: hidden;
+}
+
+/* Texto informe */
+.informe-texto {
+  padding: 16px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #e5e7eb;
+  white-space: pre-wrap;
+}
+
+/* ===============================
+   BOTÓN COPIAR (oscuro + animación)
+================================ */
+
+.copy-btn-dark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.copy-btn-dark:hover {
+  background: #020617;
+}
+
+/* Icono copiar */
+.copy-icon {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+}
+
+/* Estado COPIADO */
+.copy-btn-dark.copiado {
+  background: #022c22;
+  border-color: #16a34a;
+  color: #dcfce7;
+}
+
+/* Check animado */
+.check {
+  font-size: 14px;
+  color: #22c55e;
+  animation: pop 0.25s ease-out;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
