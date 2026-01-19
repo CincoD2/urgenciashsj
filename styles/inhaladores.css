@@ -239,3 +239,62 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+/* ===== Cabecera tabla + paginación ===== */
+
+.tabla-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0 8px 0;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tabla-info {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* ===== Paginación ===== */
+
+.paginacion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.paginacion button {
+  min-width: 32px;
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.paginacion button:hover:not(:disabled) {
+  background: #eef5f7;
+}
+
+.paginacion button.activo {
+  background: #5a7f8a;
+  color: #ffffff;
+  border-color: #5a7f8a;
+  font-weight: 600;
+}
+
+.paginacion button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Separador "..." de paginación */
+.paginacion-separador {
+  padding: 0 6px;
+  color: #6b7280;
+  font-weight: 600;
+  user-select: none;
+}

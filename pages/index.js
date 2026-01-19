@@ -146,6 +146,42 @@ export default function Home() {
     setPage(1);
   }, [fTipoTratamiento, fTipoInhalador, fAsma, fEpoc, fClases]);
 
+
+
+function getPaginationPages(current, total) {
+  const pages = [];
+
+  if (total <= 7) {
+    // pocas páginas → mostrar todas
+    for (let i = 1; i <= total; i++) pages.push(i);
+    return pages;
+  }
+
+  pages.push(1);
+
+  if (current > 3) {
+    pages.push('...');
+  }
+
+  for (let i = current - 1; i <= current + 1; i++) {
+    if (i > 1 && i < total) {
+      pages.push(i);
+    }
+  }
+
+  if (current < total - 2) {
+    pages.push('...');
+  }
+
+  pages.push(total);
+
+  return pages;
+}
+
+
+
+
+
   /* ===== PAGINACIÓN ===== */
   const totalPages = Math.ceil(filteredAndSortedData.length / PAGE_SIZE);
 
@@ -256,6 +292,49 @@ export default function Home() {
         Mostrando {paginatedData.length} de {filteredAndSortedData.length} resultados —
         Página {page} de {totalPages}
       </p>
+      
+      
+{/* CABECERA TABLA + PAGINACIÓN */}
+<div className="tabla-header">
+
+  <div className="tabla-info">
+    Mostrando {paginatedData.length} de {filteredAndSortedData.length} resultados
+    &nbsp;— Página {page} de {totalPages}
+  </div>
+
+  <div className="paginacion">
+    <button
+      disabled={page === 1}
+      onClick={() => setPage(p => Math.max(1, p - 1))}
+    >
+      ◀
+    </button>
+
+    {getPaginationPages(page, totalPages).map((p, i) =>
+  p === '...' ? (
+    <span key={`sep-${i}`} className="paginacion-separador">
+      …
+    </span>
+  ) : (
+    <button
+      key={p}
+      className={p === page ? 'activo' : ''}
+      onClick={() => setPage(p)}
+    >
+      {p}
+    </button>
+  )
+)}
+
+    <button
+      disabled={page === totalPages}
+      onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+    >
+      ▶
+    </button>
+  </div>
+</div>
+
 
       {/* TABLA */}
       <table className="tabla-intranet">
@@ -324,21 +403,21 @@ export default function Home() {
           ◀ Anterior
         </button>
 
-        {Array.from({ length: totalPages }, (_, i) => i + 1)
-          .filter(p =>
-            p === 1 ||
-            p === totalPages ||
-            Math.abs(p - page) <= 1
-          )
-          .map(p => (
-            <button
-              key={p}
-              className={p === page ? 'activo' : ''}
-              onClick={() => setPage(p)}
-            >
-              {p}
-            </button>
-          ))}
+        {getPaginationPages(page, totalPages).map((p, i) =>
+  p === '...' ? (
+    <span key={`sep-${i}`} className="paginacion-separador">
+      …
+    </span>
+  ) : (
+    <button
+      key={p}
+      className={p === page ? 'activo' : ''}
+      onClick={() => setPage(p)}
+    >
+      {p}
+    </button>
+  )
+)}
 
         <button
           disabled={page === totalPages}
