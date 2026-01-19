@@ -37,6 +37,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: left;
   padding: 12px 14px;
   border-radius: 10px;
   border: 2px solid #d1d5db;
@@ -44,6 +45,11 @@
   cursor: pointer;
   font-size: 14px;
   transition: all 0.15s ease;
+}
+
+.criterio-btn span:first-child {
+  flex: 1;
+  text-align: left;          /* 🔑 */
 }
 
 .criterio-btn:hover {
@@ -131,13 +137,29 @@
   border-radius: 12px;
   background: #0f172a;
   overflow: hidden;
+  padding: 40px 14px 14px 14px; /* ⬅️ más padding arriba */
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+/* Texto informativo arriba a la izquierda */
+.informe-label {
+  position: absolute;
+  margin-top: 5px;
+  top: 12px;
+  left: 14px;
+  font-size: 13px;
+  color: #9ca3af;
+  font-weight: 500;
 }
 
 /* Texto informe */
 .informe-texto {
   padding: 16px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
   color: #e5e7eb;
   white-space: pre-wrap;
@@ -197,5 +219,12 @@
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .criterio-btn {
+    justify-content: space-between;
+    text-align: left;
   }
 }

@@ -14,6 +14,8 @@ export default function InformeCopiable({ texto }) {
 
   return (
     <div className="informe-wrapper">
+      <div className="informe-label">Texto para informe clínico</div>
+
       <button
         className={`copy-btn-dark ${copiado ? 'copiado' : ''}`}
         onClick={copiar}
