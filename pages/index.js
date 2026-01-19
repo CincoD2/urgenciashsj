@@ -7,6 +7,21 @@ const CSV_URL =
 /* =========================
    UTILIDADES
 ========================= */
+// Detectar vista móvil (React)
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= breakpoint);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 
 // Tipo Título
 function toTitleCase(text) {
@@ -45,6 +60,7 @@ function formatearNombre(nombre) {
 ========================= */
 
 export default function Home() {
+  const isMobile = useIsMobile();
   const [sortBy, setSortBy] = useState('nombre');
   const [sortDir, setSortDir] = useState('asc'); // 'asc' | 'desc'
   const [data, setData] = useState([]);
@@ -363,7 +379,60 @@ function getPaginationPages(current, total) {
   </div>
 </div>
 
+{isMobile ? (
+  <div className="cards-list">
+    {paginatedData.map((d, i) => {
+      const n = formatearNombre(d.nombre);
 
+      return (
+        <div
+          key={i}
+          className="inhalador-card"
+          onClick={() =>
+            d['POSOLOGIA_FT_4_2_URL'] &&
+            window.open(d['POSOLOGIA_FT_4_2_URL'], '_blank')
+          }
+        >
+          <div className="card-header">
+            <strong>{n.marca}</strong>
+            {n.resto && <span> {n.resto}</span>}
+          </div>
+
+          <div className="card-pa">{toTitleCase(d.vtm)}</div>
+
+          <div className="card-row">
+            <span className="label">Dispositivo</span>
+            <span>{d.DISPOSITIVO}</span>
+          </div>
+
+          <div className="card-row">
+            <span className="label">Indicación</span>
+            <span>
+              {d['ASMA (FT 4.1)'] === 'Sí' && (
+                <span className="badge badge-asma">Asma</span>
+              )}
+              {d['EPOC (FT 4.1)'] === 'Sí' && (
+                <span className="badge badge-epoc">EPOC</span>
+              )}
+            </span>
+          </div>
+
+          <div className="card-row">
+            <span className="label">Tratamiento</span>
+            <span className={`badge badge-${d.TIPO_TRATAMIENTO?.toLowerCase()}`}>
+              {d.TIPO_TRATAMIENTO}
+            </span>
+          </div>
+
+          <div className="card-lab">
+            {d.labcomercializador}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+) : (
+     <>
       {/* TABLA */}
       <table className="tabla-intranet">
         <thead>
@@ -436,7 +505,8 @@ function getPaginationPages(current, total) {
           })}
         </tbody>
       </table>
-
+      </>
+)}
       {/* PAGINACIÓN */}
       <div className="paginacion">
         <button

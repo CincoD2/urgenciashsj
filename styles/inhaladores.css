@@ -366,3 +366,72 @@ th.sortable span {
   margin-left: 6px;
   font-size: 12px;
 }
+
+/* ===== MÓVIL ===== */
+@media (max-width: 768px) {
+
+  .tabla-intranet {
+    display: none;
+  }
+
+  .cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .inhalador-card {
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    padding: 12px;
+    background: #ffffff;
+    cursor: pointer;
+  }
+
+  .inhalador-card:hover {
+    background: #f9fafb;
+  }
+
+  .card-header {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .card-pa {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+
+  .card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 6px;
+    gap: 8px;
+  }
+
+  .card-row .label {
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  .card-lab {
+    font-size: 12px;
+    color: #4b5563;
+    margin-top: 8px;
+    text-align: right;
+  }
+
+  /* filtros más compactos */
+  .filters {
+    gap: 12px;
+  }
+
+  .filtro-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
