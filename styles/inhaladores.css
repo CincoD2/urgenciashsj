@@ -342,3 +342,17 @@
   border-color: #5a7f8a;
   box-shadow: 0 0 0 2px rgba(79, 127, 138, 0.15);
 }
+
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+th.sortable:hover {
+  background-color: #3f6973;
+}
+
+th.sortable span {
+  margin-left: 6px;
+  font-size: 12px;
+}

@@ -45,6 +45,8 @@ function formatearNombre(nombre) {
 ========================= */
 
 export default function Home() {
+  const [sortBy, setSortBy] = useState('nombre');
+  const [sortDir, setSortDir] = useState('asc'); // 'asc' | 'desc'
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -80,7 +82,16 @@ export default function Home() {
       CI: false
     });
   }
-
+  
+  /* ====== Función para manejar el clic en cabeceras ===== */
+  function onSort(col) {
+  if (sortBy === col) {
+    setSortDir(d => (d === 'asc' ? 'desc' : 'asc'));
+  } else {
+    setSortBy(col);
+    setSortDir('asc');
+  }
+}
   /* ===== CARGA CSV ===== */
   useEffect(() => {
     Papa.parse(CSV_URL, {
@@ -140,20 +151,18 @@ export default function Home() {
         return true;
       })
       .sort((a, b) => {
-        const n = (a?.nombre || '').localeCompare(
-          b?.nombre || '',
-          'es',
-          { sensitivity: 'base' }
-        );
-        if (n !== 0) return n;
+  const valA = (a?.[sortBy] || '').toString();
+  const valB = (b?.[sortBy] || '').toString();
 
-        return (a?.labcomercializador || '').localeCompare(
-          b?.labcomercializador || '',
-          'es',
-          { sensitivity: 'base' }
-        );
-      });
-  }, [data, search, fTipoTratamiento, fTipoInhalador, fAsma, fEpoc, fClases]);
+  const cmp = valA.localeCompare(valB, 'es', {
+    sensitivity: 'base',
+    numeric: true
+  });
+
+  return sortDir === 'asc' ? cmp : -cmp;
+});
+
+  }, [data, search, fTipoTratamiento, fTipoInhalador, fAsma, fEpoc, fClases, sortBy, sortDir]);
 
   /* ===== RESET PÁGINA AL CAMBIAR FILTROS ===== */
   useEffect(() => {
@@ -358,15 +367,30 @@ function getPaginationPages(current, total) {
       {/* TABLA */}
       <table className="tabla-intranet">
         <thead>
-          <tr>
-            <th className="col-nombre">Nombre</th>
-            <th className="col-pa">Principio activo</th>
-            <th className="col-dispositivo">Dispositivo</th>
-            <th className="col-indicacion">Indicación</th>
-            <th className="col-tipo">Tipo</th>
-            <th className="col-lab">Laboratorio</th>
-          </tr>
-        </thead>
+  <tr>
+    <th className="sortable col-nombre" onClick={() => onSort('nombre')}>
+      Nombre {sortBy === 'nombre' && (sortDir === 'asc' ? '▲' : '▼')}
+    </th>
+
+    <th className="sortable col-pa" onClick={() => onSort('vtm')}>
+      Principio activo {sortBy === 'vtm' && (sortDir === 'asc' ? '▲' : '▼')}
+    </th>
+
+    <th className="sortable col-dispositivo" onClick={() => onSort('DISPOSITIVO')}>
+      Dispositivo {sortBy === 'DISPOSITIVO' && (sortDir === 'asc' ? '▲' : '▼')}
+    </th>
+
+    <th className="col-indicacion">Indicación</th>
+
+    <th className="sortable col-tipo" onClick={() => onSort('TIPO_TRATAMIENTO')}>
+      Tipo {sortBy === 'TIPO_TRATAMIENTO' && (sortDir === 'asc' ? '▲' : '▼')}
+    </th>
+
+    <th className="sortable col-lab" onClick={() => onSort('labcomercializador')}>
+      Laboratorio {sortBy === 'labcomercializador' && (sortDir === 'asc' ? '▲' : '▼')}
+    </th>
+  </tr>
+</thead>
 
         <tbody>
           {paginatedData.map((d, i) => {
