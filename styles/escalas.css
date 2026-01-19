@@ -80,6 +80,7 @@
 ================================ */
 
 .reset-btn {
+  margin: 24px 0 12px 0; /* 👈 separación clara */
   align-self: flex-start;
   padding: 10px 16px;
   background: #f3f4f6;
@@ -116,6 +117,11 @@
 .resultado.amarillo {
   background: #fff4e5;
   color: #92400e;
+}
+
+.resultado.naranja {
+  background: #ffedd5;
+  color: #9a3412;
 }
 
 .resultado.rojo {
@@ -227,4 +233,43 @@
     justify-content: space-between;
     text-align: left;
   }
+  .inputs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===============================
+   INPUTS NUMÉRICOS – ESCALAS
+================================ */
+
+.inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.input-group input {
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #5a7f8a;
+  box-shadow: 0 0 0 2px rgba(79, 127, 138, 0.15);
 }
