@@ -127,6 +127,7 @@ export default function Hiponatremia() {
         : '';
 
     if (!calculo) {
+      if (avisoNaDeseadoInvalido) return avisoNaDeseadoInvalido;
       if (!faltantes.length) return '';
       return `Especifica el ${faltantes.join(' / ')} del paciente`;
     }
