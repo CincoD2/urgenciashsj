@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "inhaladores-web.vercel.app"
+        }
+      ],
+      "destination": "https://urgenciashsj.vercel.app/$1",
+      "permanent": true
+    }
+  ]
+}
