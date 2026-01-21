@@ -243,6 +243,12 @@ export default function DepuradorTtos() {
   }
 
   const onDepurar = (nuevoTexto, nuevoVariasLineas = variasLineas) => {
+    if (!nuevoTexto || !nuevoTexto.trim()) {
+      setResultado('');
+      setMedicamentos([]);
+      setSeleccion({});
+      return;
+    }
     const textoFiltrado = filtrarTextoPorSeleccion(nuevoTexto);
     setResultado(depurar(textoFiltrado, nuevoVariasLineas));
   };
@@ -255,6 +261,12 @@ export default function DepuradorTtos() {
   };
 
   useEffect(() => {
+    if (!texto || !texto.trim()) {
+      setMedicamentos([]);
+      setSeleccion({});
+      setResultado('');
+      return;
+    }
     const lista = extraerMedicamentos(texto);
     setMedicamentos(lista);
     const nuevaSeleccion = {};
@@ -265,7 +277,7 @@ export default function DepuradorTtos() {
   }, [texto]);
 
   useEffect(() => {
-    if (!texto) return;
+    if (!texto || !texto.trim()) return;
     onDepurar(texto, variasLineas);
   }, [seleccion, texto, variasLineas]);
 
