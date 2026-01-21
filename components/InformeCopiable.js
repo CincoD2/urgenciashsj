@@ -1,15 +1,40 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function InformeCopiable({ texto }) {
   const [copiado, setCopiado] = useState(false);
 
-  function copiar() {
+  async function copiar() {
     if (!texto) return;
 
-    navigator.clipboard.writeText(texto).then(() => {
+    // 1) Intento moderno
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(texto);
+        setCopiado(true);
+        setTimeout(() => setCopiado(false), 1500);
+        return;
+      }
+    } catch (e) {
+      // seguimos al fallback
+    }
+
+    // 2) Fallback compatible con iframes (Google Sites)
+    try {
+      const textarea = document.createElement("textarea");
+      textarea.value = texto;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+
       setCopiado(true);
       setTimeout(() => setCopiado(false), 1500);
-    });
+    } catch (e) {
+      console.error("Error al copiar", e);
+    }
   }
 
   return (
@@ -17,7 +42,7 @@ export default function InformeCopiable({ texto }) {
       <div className="informe-label">Texto para informe</div>
 
       <button
-        className={`copy-btn-dark ${copiado ? 'copiado' : ''}`}
+        className={`copy-btn-dark ${copiado ? "copiado" : ""}`}
         onClick={copiar}
         disabled={!texto}
         title="Copiar al portapapeles"
@@ -42,9 +67,7 @@ export default function InformeCopiable({ texto }) {
         )}
       </button>
 
-      <pre className="informe-texto">
-{texto || '—'}
-      </pre>
+      <pre className="informe-texto">{texto || "—"}</pre>
     </div>
   );
 }
