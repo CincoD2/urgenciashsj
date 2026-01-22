@@ -168,6 +168,7 @@ export default function DepuradorTtos() {
       PRESION: "",
       POMADA: "",
       MODIFICADA: "",
+      "30 COMPR LIBERAC PROLON REC PEL": "",
       "SOLUCION CUTANEA": "",
       "1 FRASCO 200ML JARABE": "",
       "1 FRASCO 10ML GOTAS ORALES EN SOLUCION ": "",
