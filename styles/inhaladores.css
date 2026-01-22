@@ -221,7 +221,6 @@
   background: #fecaca;
 }
 
-
 /* ESTILO DE PAGINACIÓN */
 .paginacion {
   display: flex;
@@ -325,12 +324,11 @@
   left: 14px;
   transform: translateY(-50%);
   width: 100%;
-  height: 20px;
+  height: 40px;
   background-repeat: no-repeat;
   background-size: contain;
   opacity: 0.55;
   pointer-events: none;
-  background-image: url("https://www.riberasalud.com/wp-content/themes/grupo-ribera/assets/search.svg");
 }
 
 .buscador-input {
@@ -369,7 +367,6 @@ th.sortable span {
 
 /* ===== MÓVIL ===== */
 @media (max-width: 768px) {
-
   .tabla-intranet {
     display: none;
   }

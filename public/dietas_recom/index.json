@@ -1,0 +1,209 @@
+[
+  {
+    "id": "ANTICOAGULACIÓN EN FLUTTERFIBRILACI",
+    "titulo": "Anticoagulación en flutter/fibrilación",
+    "ruta": "/dietas_recom/ANTICOAGULACIÓN EN FLUTTERFIBRILACI.txt",
+    "tags": ["cardiovascular", "neurológico", "recomendacion", "renal"],
+    "sistemas": ["cardiovascular", "neurológico", "renal"]
+  },
+  {
+    "id": "ASTRINGENTE",
+    "titulo": "Astringente",
+    "ruta": "/dietas_recom/ASTRINGENTE.txt",
+    "tags": ["digestivo", "recomendacion", "diarrea", "colitis", "enteritis", "enterocolitis"],
+    "sistemas": ["digestivo"]
+  },
+  {
+    "id": "COLON IRRITABLE",
+    "titulo": "Colon Irritable",
+    "ruta": "/dietas_recom/COLON IRRITABLE.txt",
+    "tags": ["dieta", "digestivo"],
+    "sistemas": ["digestivo"]
+  },
+  {
+    "id": "COVID-19",
+    "titulo": "Covid 19",
+    "ruta": "/dietas_recom/COVID-19.txt",
+    "tags": ["infeccioso", "recomendacion", "respiratorio"],
+    "sistemas": ["infeccioso", "respiratorio"]
+  },
+  {
+    "id": "CÓLICO RENAL",
+    "titulo": "Cólico renal",
+    "ruta": "/dietas_recom/CÓLICO RENAL.txt",
+    "tags": ["recomendacion", "nefrourológico"],
+    "sistemas": ["nefrourológico"]
+  },
+  {
+    "id": "CROHN",
+    "titulo": "Crohn",
+    "ruta": "/dietas_recom/CROHN.txt",
+    "tags": ["dieta", "digestivo"],
+    "sistemas": ["digestivo"]
+  },
+  {
+    "id": "DIABÉTICOS",
+    "titulo": "Dieta para diabéticos",
+    "ruta": "/dietas_recom/DIABÉTICOS.txt",
+    "tags": ["dieta", "endocrino", "dm", "hiperglucemia", "glucemia"],
+    "sistemas": ["endocrino"]
+  },
+  {
+    "id": "ESTREÑIMIENTO",
+    "titulo": "Estreñimiento",
+    "ruta": "/dietas_recom/ESTREÑIMIENTO.txt",
+    "tags": ["dieta", "digestivo"],
+    "sistemas": ["digestivo"]
+  },
+  {
+    "id": "FARINGITIS",
+    "titulo": "Faringitis",
+    "ruta": "/dietas_recom/FARINGITIS.txt",
+    "tags": ["infeccioso", "recomendacion", "respiratorio"],
+    "sistemas": ["infeccioso", "respiratorio"]
+  },
+  {
+    "id": "Fisura Anal",
+    "titulo": "Fisura anal",
+    "ruta": "/dietas_recom/Fisura Anal.txt",
+    "tags": ["dieta", "digestivo", "recomendacion"],
+    "sistemas": ["digestivo"]
+  },
+  {
+    "id": "GASES METEORISMO",
+    "titulo": "Gases y meteorismo",
+    "ruta": "/dietas_recom/GASES METEORISMO.txt",
+    "tags": ["dieta", "digestivo", "recomendacion"],
+    "sistemas": ["digestivo"]
+  },
+  {
+    "id": "GASTRITISREFLUJO",
+    "titulo": "Gastritis/Reflujo",
+    "ruta": "/dietas_recom/GASTRITISREFLUJO.txt",
+    "tags": ["dieta", "digestivo", "recomendacion"],
+    "sistemas": ["digestivo"]
+  },
+  {
+    "id": "GEA",
+    "titulo": "GEA",
+    "ruta": "/dietas_recom/GEA.txt",
+    "tags": [
+      "dieta",
+      "digestivo",
+      "recomendacion",
+      "gastroenteritis",
+      "colitis",
+      "enteritis",
+      "diarrea",
+      "cagalera",
+      "sueroral",
+      "blanda"
+    ],
+    "sistemas": ["digestivo"]
+  },
+  {
+    "id": "HTA",
+    "titulo": "HTA",
+    "ruta": "/dietas_recom/HTA.txt",
+    "tags": ["cardiovascular", "dieta", "endocrino", "recomendacion"],
+    "sistemas": ["cardiovascular", "endocrino"]
+  },
+  {
+    "id": "Hemorroides",
+    "titulo": "Hemorroides",
+    "ruta": "/dietas_recom/Hemorroides.txt",
+    "tags": ["dieta", "digestivo", "recomendacion"],
+    "sistemas": ["digestivo"]
+  },
+  {
+    "id": "INSUFICIENCIA CARDIACA",
+    "titulo": "Insuficiencia cardiaca",
+    "ruta": "/dietas_recom/INSUFICIENCIA CARDIACA.txt",
+    "tags": ["cardiovascular", "recomendacion", "respiratorio"],
+    "sistemas": ["cardiovascular", "respiratorio"]
+  },
+  {
+    "id": "Inmovilización por vendas de Yeso",
+    "titulo": "Inmovilización por Vendas de Yeso",
+    "ruta": "/dietas_recom/Inmovilización por vendas de Yeso.txt",
+    "tags": ["trauma", "recomendacion"],
+    "sistemas": ["trauma"]
+  },
+  {
+    "id": "Insuficiencia Venosa y Varices",
+    "titulo": "Insuficiencia venosa y varices",
+    "ruta": "/dietas_recom/Insuficiencia Venosa y Varices.txt",
+    "tags": ["cardiovascular", "dermatológico", "infeccioso", "recomendacion"],
+    "sistemas": ["cardiovascular", "dermatológico", "infeccioso"]
+  },
+  {
+    "id": "MAPA",
+    "titulo": "MAPA",
+    "ruta": "/dietas_recom/MAPA.txt",
+    "tags": ["recomendacion", "cardiovascular"],
+    "sistemas": ["cardiovascular"]
+  },
+  {
+    "id": "MIGRAÑAS",
+    "titulo": "Migrañas",
+    "ruta": "/dietas_recom/MIGRAÑAS.txt",
+    "tags": ["dieta", "neurológico", "recomendacion"],
+    "sistemas": ["neurológico"]
+  },
+  {
+    "id": "MONKEYPOX",
+    "titulo": "Monkeypox",
+    "ruta": "/dietas_recom/MONKEYPOX.txt",
+    "tags": ["infeccioso", "recomendacion", "respiratorio", "dermatológico"],
+    "sistemas": ["infeccioso", "respiratorio", "dermatológico"]
+  },
+  {
+    "id": "MONONUCLEOSIS INFECCIOSA",
+    "titulo": "Mononucleosis infecciosa",
+    "ruta": "/dietas_recom/MONONUCLEOSIS INFECCIOSA.txt",
+    "tags": ["infeccioso", "recomendacion"],
+    "sistemas": ["infeccioso"]
+  },
+  {
+    "id": "PIE DE ATLETA",
+    "titulo": "Pie de atleta",
+    "ruta": "/dietas_recom/PIE DE ATLETA.txt",
+    "tags": ["dermatológico", "infeccioso", "trauma", "recomendacion"],
+    "sistemas": ["dermatológico", "infeccioso", "trauma"]
+  },
+  {
+    "id": "PROTECCIÓN BILIAR",
+    "titulo": "Protección Biliar",
+    "ruta": "/dietas_recom/PROTECCIÓN BILIAR.txt",
+    "tags": ["dieta", "digestivo", "recomendacion", "cólico"],
+    "sistemas": ["digestivo"]
+  },
+  {
+    "id": "SIGNOS DE ALARMA EN CEFALEA",
+    "titulo": "Signos de alarma en cefalea",
+    "ruta": "/dietas_recom/SIGNOS DE ALARMA EN CEFALEA.txt",
+    "tags": ["neurológico", "recomendacion"],
+    "sistemas": ["neurológico"]
+  },
+  {
+    "id": "TCE",
+    "titulo": "TCE",
+    "ruta": "/dietas_recom/TCE.txt",
+    "tags": ["neurológico", "recomendacion", "trauma"],
+    "sistemas": ["neurológico", "trauma"]
+  },
+  {
+    "id": "TVP",
+    "titulo": "TVP",
+    "ruta": "/dietas_recom/TVP.txt",
+    "tags": ["cardiovascular", "recomendacion", "respiratorio"],
+    "sistemas": ["cardiovascular", "respiratorio"]
+  },
+  {
+    "id": "VERTIGO",
+    "titulo": "Vertigo",
+    "ruta": "/dietas_recom/VERTIGO.txt",
+    "tags": ["neurológico", "recomendacion"],
+    "sistemas": ["neurológico"]
+  }
+]

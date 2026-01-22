@@ -316,7 +316,26 @@ export default function Home() {
       </div>
 
       <div className="buscador-wrapper">
-        <span className="buscador-icon" aria-hidden />
+        <span className="buscador-icon" aria-hidden>
+          <svg
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 841.889 595.281"
+            xmlSpace="preserve"
+          >
+            <path
+              fill="currentColor"
+              d="M699.567,542.207L557.889,394.854c36.428-43.304,56.387-97.789,56.387-154.51
+	C614.276,107.82,506.455,0,373.932,0C241.407,0,133.587,107.82,133.587,240.344c0,132.523,107.82,240.344,240.345,240.344
+	c49.751,0,97.161-15.006,137.695-43.491l142.754,148.47c5.967,6.196,13.992,9.614,22.593,9.614c8.141,0,15.862-3.104,21.725-8.747
+	C711.155,574.549,711.552,554.673,699.567,542.207z M373.931,62.699c97.956,0,177.646,79.689,177.646,177.646
+	S471.887,417.99,373.932,417.99c-97.956,0-177.646-79.689-177.646-177.646S275.976,62.699,373.931,62.699z"
+            />
+          </svg>
+        </span>
         <input
           type="text"
           placeholder="Busca palabras clave..."
