@@ -1,30 +1,83 @@
-import { useEffect, useMemo, useState } from "react";
-import InformeCopiable from "@/components/InformeCopiable";
+import { useEffect, useMemo, useState } from 'react';
+import InformeCopiable from '@/components/InformeCopiable';
+import Papa from 'papaparse';
+
+/* Añado el estado para reglas y la URL del csv */
+
+const REGLAS_URL =
+  'https://docs.google.com/spreadsheets/d/e/2PACX-1vT-HP_OCXjtFN6cCrpBgViv59ufFzUBerAK5jvTSLoT27zC_ux_3YTpX4oQcmCNIZg7blWaBANXtUkF/pub?output=csv';
+
+/* Carga las reglas al montar */
 
 export default function DepuradorTtos() {
-  const [texto, setTexto] = useState("");
+  const [texto, setTexto] = useState('');
   const [variasLineas, setVariasLineas] = useState(false);
-  const [resultado, setResultado] = useState("");
+  const [resultado, setResultado] = useState('');
   const [medicamentos, setMedicamentos] = useState([]);
   const [seleccion, setSeleccion] = useState({});
-
+  const [reglas, setReglas] = useState([]); // [{ patron, reemplazo, tipo, flags }]
+  const [reglasListas, setReglasListas] = useState(false);
   const textoDepurado = useMemo(() => {
-    if (!resultado) return "";
+    if (!resultado) return '';
     return resultado;
   }, [resultado]);
 
+  useEffect(() => {
+    Papa.parse(REGLAS_URL, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        const rows = (results.data || [])
+          .map((r) => ({
+            patron: (r.patron || '').trim(),
+            reemplazo: (r.reemplazo ?? '').toString(),
+            tipo: (r.tipo || 'regex').trim().toLowerCase(), // "regex" | "literal"
+            flags: (r.flags || 'g').trim(), // "g" | "gi" etc
+          }))
+          .filter((r) => r.patron);
+
+        setReglas(rows);
+        setReglasListas(true);
+      },
+      error: (err) => {
+        console.error('Error cargando reglas:', err);
+        setReglas([]);
+        setReglasListas(true); // para no bloquear
+      },
+    });
+  }, []);
+
+  /* Compila las reglas a RegExp (para rendimiento y control) */
+
+  const reglasCompiladas = useMemo(() => {
+    return reglas
+      .map((r) => {
+        try {
+          if (r.tipo === 'literal') {
+            // escapar literal para que no sea regex
+            const escaped = r.patron.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            return { re: new RegExp(escaped, r.flags || 'g'), reemplazo: r.reemplazo };
+          }
+          // regex
+          return { re: new RegExp(r.patron, r.flags || 'g'), reemplazo: r.reemplazo };
+        } catch (e) {
+          console.warn('Regla inválida, se omite:', r, e);
+          return null;
+        }
+      })
+      .filter(Boolean);
+  }, [reglas]);
+
   function extraerMedicamentos(textoOriginal) {
-    const lineas = textoOriginal.split("\n");
+    const lineas = textoOriginal.split('\n');
     const lista = [];
     for (let i = 0; i < lineas.length; i += 1) {
       const linea = lineas[i];
-      if (linea.startsWith("Terapia/Medicamento:")) {
-        const nombre = linea.replace("Terapia/Medicamento:", "").trim();
+      if (linea.startsWith('Terapia/Medicamento:')) {
+        const nombre = linea.replace('Terapia/Medicamento:', '').trim();
         const bloque = [linea];
-        if (
-          lineas[i + 1] &&
-          lineas[i + 1].startsWith("Posología/Observaciones:")
-        ) {
+        if (lineas[i + 1] && lineas[i + 1].startsWith('Posología/Observaciones:')) {
           bloque.push(lineas[i + 1]);
         }
         lista.push({
@@ -40,174 +93,35 @@ export default function DepuradorTtos() {
   function filtrarTextoPorSeleccion(textoOriginal) {
     if (!medicamentos.length) return textoOriginal;
     const activos = medicamentos.filter((m) => seleccion[m.id]);
-    if (!activos.length) return "";
-    return activos.map((m) => m.bloque.join("\n")).join("\n");
+    if (!activos.length) return '';
+    return activos.map((m) => m.bloque.join('\n')).join('\n');
   }
 
   function depurar(textoOriginal, sustituirSaltoLinea) {
-    const fechaActual = new Date().toLocaleDateString("es-ES");
+    const fechaActual = new Date().toLocaleDateString('es-ES');
     let textoProcesado = textoOriginal;
-
-    const diccionario = {
-      "SUSP PARA INHALAC EN ENVASE A PRESION": "",
-      "\\d+ COMPRIMIDOS RECUBIERTOS CON PELICULA": "",
-      "\\d+ COMPRIMIDOS DE LIBERACION MODIFICADA": "",
-      "\\d+ COMPRIMIDOS DE LIBERACION PROLONGADA": "",
-      "\\d+ COMPR RECUB": "",
-      "\\d+ SOBRES POLVO PARA SUSPENSION ORAL": "",
-      "\\d+ AMPOLLAS \\d+ML": "",
-      "\\d+ JERINGA PRECARGADA \\d+ML SOLUCION INYECTABLE": "",
-      "\\d+ COMPRIMIDOS RECUBIER RANU": "",
-      "300 UNIDADES/ML 3 PLUMAS PRECARGADAS 1,5ML SOLUCION INYECT": "",
-      "4 PLUMAS PRECARGADAS SOLUCION INYECTABLE": "",
-      "\\(\\d+ INHALACIONES\\)": "",
-      "\\d+ UNIDADES/ML \\d+ PLUMAS RECARG \\d+ML SOLUC INYEC": "",
-      "\\d+ PARCHES TRANSDERMICOS": "",
-      "\\d+ INHAL": "",
-      "\\d+ INH \\d+ DOSIS POLVO INHALACION \\(UNIDOSIS\\)": "",
-      "20 CAPSULAS": "",
-      "28cp": "",
-      "30cp": "",
-      "60cp": "",
-      "40cp": "",
-      "100cp": "",
-      "56cp": "",
-      "20cp": "",
-      "50cp": "",
-      "90cp": "",
-      ASPOL: "",
-      "\\d+JER PRECARGADA \\d+ML SOLUCION INYECTABLE": "",
-      "\\d+ JER PRECARGADA 0,5ML": "",
-      "EN \\d+ ML \\d+ AMPOLLAS DE \\d+ML": "",
-      "/G ": "/g ",
-      "/H ": "/h ",
-      "EN \\d+ ML \\d+ COLIRIO DE \\d+ML": "",
-      "\\d+MG LIBERACION PROLONGADA": "",
-      "\\d+ COM BUCODI EFG": "",
-      "\\d+ COMPRIMIDOS EFG": "",
-      "\\d+ COMPRIMIDOS": "",
-      "\\d+ FRASCO DE \\d+ML SOLUCION ORAL": "",
-      "\\d+ DOSIS POLVO PARA INHALAC \\(UNIDOSIS\\)": "",
-      "\\d+ INHALAD \\d+ DOSIS POLVO PARA INHAL\\(UNIDOSIS\\)": "",
-      "LIBERACION PROLONGADA": "",
-      "\\d+ DOSIS SUSP INH ENV  PRES EFG": "",
-      "SOLUCION INYECTABLE EN JERINGA PRECARGADA, ": "",
-      "\\d+ JERINGAS PRECARGADAS DE ": "",
-      "JERINGA PRECARGADA": "iny",
-      MICROGRAMOS: "mcg",
-      COMPRIMIDOS: "cp",
-      COMPRIMIDO: "cp",
-      CRÓNICO: "",
-      SANDOZ: "",
-      "ALDO-UNION": "",
-      "/DOSIS": "/dosis",
-      ALTER: "",
-      RATIOPHARM: "",
-      ALMUS: "",
-      DAVUR: "",
-      "EN 1 ML 5 AMPOLLAS DE 1 ML": "",
-      EFG: "",
-      "MG/": "mg/",
-      " MG": "mg",
-      " MCG": "mcg",
-      MCG: "mcg",
-      "MG ": "mg ",
-      "MCG ": "mcg ",
-      "ML ": "mL ",
-      " ML": "mL",
-      "cada día": "diarios",
-      " horas": "h",
-      AMPOLLAS: "amp",
-      AMPOLLA: "amp",
-      RECUBIERTOS: "",
-      " / ": "",
-      " PULSACION": "inh",
-      " iny": "iny",
-      " cada ": "/",
-      MEDIO: "1/2",
-      " día/s": "d",
-      " PARCHE TRANSDERMICO": " parche",
-      "CON PELICULA ": "",
-      " CAPSULAS": "cp",
-      " CAPSULA": "cp",
-      " GOTAS ORALES": " gotas",
-      " cp": "cp",
-      " SOLUCION INYECTABLE": "",
-      RANURADOS: "",
-      LIBERACION: "",
-      "30 SOBRES": "",
-      "SOLUCION ORAL EN SOBRE": "",
-      SOBRES: "sobres",
-      " amp BEBIBLE/": " amp/",
-      SOBRE: "sobre",
-      " RANU ": "",
-      TABLETA: "cp",
-      " RECUBIER ": "",
-      DURAS: "",
-      SANOFI: "",
-      "\\(NOVARTIS\\)": "",
-      "\\(LILLY\\)": "",
-      SOLOSTAR: "",
-      "GOTA OFTALMICA": "gota",
-      EFERVESCENTES: "",
-      EFERVESCENTE: "",
-      MASTICABLES: "",
-      MASTICABLE: "",
-      BUCODISPERSABLES: "",
-      BUCODISPERSABLE: "",
-      VIATRIS: "",
-      ALMIRALL: "",
-      GASTRORRESISTENTES: "",
-      GASTRORRESIST: "",
-      BUCODISPERS: "",
-      "mg\\d+ SOBRES": "",
-      "CON PELICULA": "",
-      " PULVERIZACION": "inh",
-      " CARTUCHO/PLUMA": "iny",
-      NASAL: "",
-      PRESION: "",
-      POMADA: "",
-      MODIFICADA: "",
-      "SOLUCION CUTANEA": "",
-      "1 FRASCO 200ML JARABE": "",
-      "1 FRASCO 10ML GOTAS ORALES EN SOLUCION ": "",
-      "FRASCO 40ML SOLUCION ORAL ": "",
-      "1 FRASCO": "",
-      "EN SOLUCION": "",
-      "SOLUCION INYECTABLE EN UNA JERINGA": "",
-      "EN 5ML 6 AMPOLLAS DE 5 ML": "",
-      "1 INHAL 200 DOSIS SUSP INHALAC ENV A": "",
-      "BLISTER PVC/PVDC-ALUMINIO": "",
-      "RECUBIERTOS CON PELICULA": "",
-      "\\(\\)": "",
-      "1cp diarios": "1cp diario",
-      "durante \\d+ días": "",
-    };
 
     const numVeces = 5;
     for (let n = 0; n < numVeces; n += 1) {
-      Object.keys(diccionario).forEach((clave) => {
-        const expresion = new RegExp(clave, "g");
-        textoProcesado = textoProcesado.replace(expresion, diccionario[clave]);
-      });
+      for (const regla of reglasCompiladas) {
+        textoProcesado = textoProcesado.replace(regla.re, regla.reemplazo);
+      }
     }
 
-    const lineas = textoProcesado.split("\n");
+    const lineas = textoProcesado.split('\n');
     const lineasModificadas = [];
     for (let i = 0; i < lineas.length; i += 1) {
       if (
-        lineas[i].startsWith("Terapia/Medicamento:") &&
+        lineas[i].startsWith('Terapia/Medicamento:') &&
         lineas[i + 1] &&
-        lineas[i + 1].startsWith("Posología/Observaciones:")
+        lineas[i + 1].startsWith('Posología/Observaciones:')
       ) {
         lineasModificadas.push(
-          `${lineas[i]} (${lineas[i + 1].replace("Posología/Observaciones: ", "")})`,
+          `${lineas[i]} (${lineas[i + 1].replace('Posología/Observaciones: ', '')})`
         );
         i += 1;
-      } else if (lineas[i].startsWith("Posología/Observaciones")) {
-        lineasModificadas.push(
-          `(${lineas[i].replace("Posología/Observaciones: ", "")})`,
-        );
+      } else if (lineas[i].startsWith('Posología/Observaciones')) {
+        lineasModificadas.push(`(${lineas[i].replace('Posología/Observaciones: ', '')})`);
       } else {
         lineasModificadas.push(lineas[i]);
       }
@@ -215,16 +129,16 @@ export default function DepuradorTtos() {
 
     const lineasFiltradas = lineasModificadas.filter(
       (linea) =>
-        !linea.startsWith("Profesional") &&
-        !linea.startsWith("Fecha inicio") &&
-        !linea.startsWith("Fecha fin"),
+        !linea.startsWith('Profesional') &&
+        !linea.startsWith('Fecha inicio') &&
+        !linea.startsWith('Fecha fin')
     );
 
-    textoProcesado = lineasFiltradas.join("; ").replace(/\n\n/g, "; ");
-    textoProcesado = textoProcesado.replace(/; ; /g, "; ");
-    textoProcesado = textoProcesado.replace(/Terapia\/Medicamento:/g, "");
-    textoProcesado = textoProcesado.replace(/ {2,}/g, " ");
-    textoProcesado = textoProcesado.replace(/ \)/g, ")");
+    textoProcesado = lineasFiltradas.join('; ').replace(/\n\n/g, '; ');
+    textoProcesado = textoProcesado.replace(/; ; /g, '; ');
+    textoProcesado = textoProcesado.replace(/Terapia\/Medicamento:/g, '');
+    textoProcesado = textoProcesado.replace(/ {2,}/g, ' ');
+    textoProcesado = textoProcesado.replace(/ \)/g, ')');
 
     if (sustituirSaltoLinea) {
       textoProcesado = `Tratamiento crónico (por SIA a fecha ${fechaActual}):\n${textoProcesado}`;
@@ -233,16 +147,16 @@ export default function DepuradorTtos() {
     }
 
     if (sustituirSaltoLinea) {
-      textoProcesado = textoProcesado.replace(/; /g, "\n");
-      textoProcesado = textoProcesado.replace("\n\n", "\n");
+      textoProcesado = textoProcesado.replace(/; /g, '\n');
+      textoProcesado = textoProcesado.replace('\n\n', '\n');
       textoProcesado = textoProcesado
-        .split("\n")
+        .split('\n')
         .map((linea, index) => {
           if (index === 0) return linea;
           const limpia = linea.trim();
           return limpia ? `- ${limpia}` : linea;
         })
-        .join("\n");
+        .join('\n');
     }
 
     return textoProcesado;
@@ -250,7 +164,7 @@ export default function DepuradorTtos() {
 
   const onDepurar = (nuevoTexto, nuevoVariasLineas = variasLineas) => {
     if (!nuevoTexto || !nuevoTexto.trim()) {
-      setResultado("");
+      setResultado('');
       setMedicamentos([]);
       setSeleccion({});
       return;
@@ -260,8 +174,8 @@ export default function DepuradorTtos() {
   };
 
   const onLimpiar = () => {
-    setTexto("");
-    setResultado("");
+    setTexto('');
+    setResultado('');
     setMedicamentos([]);
     setSeleccion({});
   };
@@ -270,7 +184,7 @@ export default function DepuradorTtos() {
     if (!texto || !texto.trim()) {
       setMedicamentos([]);
       setSeleccion({});
-      setResultado("");
+      setResultado('');
       return;
     }
     const lista = extraerMedicamentos(texto);
@@ -283,9 +197,12 @@ export default function DepuradorTtos() {
   }, [texto]);
 
   useEffect(() => {
+    if (!reglasListas) return;
     if (!texto || !texto.trim()) return;
     onDepurar(texto, variasLineas);
-  }, [seleccion, texto, variasLineas]);
+  }, [seleccion, texto, variasLineas, reglasListas, reglasCompiladas]);
+
+  if (!reglasListas) return <p>Cargando reglas…</p>;
 
   return (
     <main className="escala-wrapper" style={{ padding: 24 }}>
@@ -320,7 +237,7 @@ export default function DepuradorTtos() {
                     }))
                   }
                 />
-                <span>{m.nombre || "Sin nombre"}</span>
+                <span>{m.nombre || 'Sin nombre'}</span>
               </label>
             ))}
           </div>
@@ -333,23 +250,19 @@ export default function DepuradorTtos() {
           <div className="selector-botones">
             <button
               type="button"
-              className={`selector-btn ${variasLineas ? "activo" : ""}`}
+              className={`selector-btn ${variasLineas ? 'activo' : ''}`}
               onClick={() => {
                 const nuevoValor = !variasLineas;
                 setVariasLineas(nuevoValor);
                 onDepurar(texto, nuevoValor);
               }}
             >
-              {variasLineas ? "Sí" : "No"}
+              {variasLineas ? 'Sí' : 'No'}
             </button>
           </div>
         </div>
 
-        <button
-          className="reset-btn depurador-reset"
-          type="button"
-          onClick={onLimpiar}
-        >
+        <button className="reset-btn depurador-reset" type="button" onClick={onLimpiar}>
           Limpiar texto
         </button>
       </div>
