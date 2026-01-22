@@ -51,9 +51,7 @@ export default function DietasYRecomendaciones() {
     sistemas.forEach((s) => {
       grupos[s] = filtrados.filter((it) => (it.sistemas || []).includes(s));
     });
-    const sinSistema = filtrados.filter(
-      (it) => !(it.sistemas || []).length
-    );
+    const sinSistema = filtrados.filter((it) => !(it.sistemas || []).length);
     if (sinSistema.length) {
       grupos.otros = sinSistema;
     }
@@ -78,8 +76,6 @@ export default function DietasYRecomendaciones() {
 
   return (
     <main className="escala-wrapper" style={{ padding: 24 }}>
-      <h1>Dietas y recomendaciones</h1>
-
       <div className="buscador-wrapper buscador-dietas">
         <span className="buscador-icon" aria-hidden>
           <svg
@@ -109,11 +105,7 @@ export default function DietasYRecomendaciones() {
           className="buscador-input"
         />
         {q && (
-          <button
-            type="button"
-            className="buscador-clear"
-            onClick={() => setQ('')}
-          >
+          <button type="button" className="buscador-clear" onClick={() => setQ('')}>
             Limpiar
           </button>
         )}
@@ -145,17 +137,13 @@ export default function DietasYRecomendaciones() {
           {Object.keys(agrupados).map((grupo) => (
             <div key={grupo} className="dietas-grupo">
               <div className="dietas-grupo-titulo">
-                {grupo === 'otros'
-                  ? 'Otros'
-                  : grupo.charAt(0).toUpperCase() + grupo.slice(1)}
+                {grupo === 'otros' ? 'Otros' : grupo.charAt(0).toUpperCase() + grupo.slice(1)}
               </div>
               {agrupados[grupo].map((it) => (
                 <button
                   key={it.id}
                   type="button"
-                  className={`selector-btn dietas-item ${
-                    seleccion?.id === it.id ? 'activo' : ''
-                  }`}
+                  className={`selector-btn dietas-item ${seleccion?.id === it.id ? 'activo' : ''}`}
                   onClick={() => cargar(it)}
                   title={(it.tags || []).join(', ')}
                 >
