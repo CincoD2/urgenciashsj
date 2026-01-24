@@ -2,9 +2,15 @@
   {
     "id": "ANTICOAGULACIÓN EN FLUTTERFIBRILACI",
     "titulo": "Anticoagulación en flutter/fibrilación",
-    "ruta": "/dietas_recom/ANTICOAGULACIÓN EN FLUTTERFIBRILACI.txt",
-    "tags": ["cardiovascular", "neurológico", "recomendacion", "renal"],
-    "sistemas": ["cardiovascular", "neurológico", "renal"]
+    "ruta": "/dietas_recom/acods.txt",
+    "tags": [
+      "cardiovascular",
+      "neurológico",
+      "recomendacion",
+      "renal",
+      "anticoagulantes"
+    ],
+    "sistemas": ["cardiovascular", "neurológico", "nefrológico", "hematología"]
   },
   {
     "id": "ASTRINGENTE",

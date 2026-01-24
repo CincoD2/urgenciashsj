@@ -1,0 +1,25 @@
+ANTICOAGULACIÓN EN FLUTTER/FIBRILACIÓN AURICULAR
+
+Motivo de la anticoagulación
+El flutter/fibrilación auricular favorece la formación de trombos en la aurícula por estasis sanguínea. La cardioversión eléctrica, aunque restaura el ritmo sinusal, aumenta transitoriamente el riesgo de embolia (ictus, embolia sistémica) por movilización de trombos preexistentes o por disfunción auricular poscardioversión ("atontamiento auricular").
+Por este motivo, las guías recomiendan anticoagulación oral al menos 4 semanas tras la cardioversión, independientemente del éxito del procedimiento, y de forma indefinida si el riesgo embólico lo indica. Estas recomendaciones se basan en evidencia sólida y son extrapolables al flutter/fibrilación auricular.
+
+Beneficio esperado
+La anticoagulación reduce de forma significativa el riesgo de ictus y embolia sistémica, que en pacientes no anticoagulados es clínicamente relevante incluso tras cardioversión aparentemente exitosa.
+
+Riesgo hemorrágico
+Los anticoagulantes aumentan el riesgo de sangrado. La mayoría de las hemorragias son leves (hematomas, epistaxis, gingivorragias), pero existe un riesgo bajo de hemorragias graves (digestivas o intracraneales).
+El riesgo hemorrágico depende de factores individuales (edad, insuficiencia renal, antecedentes de sangrado, consumo de AINEs o alcohol, etc.) y se valora de forma sistemática (p. ej., escala HAS-BLED). En general, en pacientes bien seleccionados, el beneficio en prevención de ictus supera claramente el riesgo de sangrado.
+
+Recomendaciones al paciente
+
+- Tome el anticoagulante exactamente como se le ha prescrito, sin omitir dosis.
+- No suspenda el tratamiento por su cuenta, aunque se encuentre bien o tenga ritmo normal.
+- Informe a cualquier profesional sanitario de que está anticoagulado.
+- Evite la automedicación con antiinflamatorios (ibuprofeno, naproxeno) y consulte antes de iniciar nuevos fármacos o productos de herbolario.
+- Vigile signos de sangrado: sangrado persistente por nariz o encías, orina oscura o con sangre, heces negras, hematomas extensos o sangrado no habitual. Ante estos síntomas, consulte de forma precoz.
+- Acuda a las revisiones y controles indicados.
+- Precaución en actividades de riesgo: Mientras esté en tratamiento anticoagulante debe extremar las precauciones en actividades que conlleven riesgo de caídas o traumatismos, especialmente aquellas con posibilidad de traumatismo craneoencefálico (TCE). Los golpes en la cabeza, incluso aparentemente leves, pueden asociarse a hemorragias intracraneales, que pueden ser graves en pacientes anticoagulados. Evite deportes de contacto o actividades con alto riesgo de caída o impacto. Use medidas de protección adecuadas cuando proceda (p. ej., casco). Ante cualquier golpe en la cabeza, pérdida de conciencia, cefalea intensa, vómitos, somnolencia, confusión o empeoramiento neurológico, solicite valoración médica.
+
+Mensaje clave
+La anticoagulación se ha iniciado para prevenir un ictus u otra embolia, una complicación potencialmente grave del flutter auricular y de la cardioversión. Aunque existe riesgo de sangrado, este se controla con un uso adecuado del tratamiento y seguimiento médico, y el balance beneficio-riesgo es favorable según la evidencia científica actual.
