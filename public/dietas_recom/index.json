@@ -206,4 +206,28 @@
     "tags": ["neurológico", "recomendacion"],
     "sistemas": ["neurológico"]
   }
+
+  {
+    "id": "DIVERTICULITIS1",
+    "titulo": "Diverticulitis Dieta días 0-3",
+    "ruta": "/dietas_recom/diverticulitis_dieta0-3.txt",
+    "tags": ["dieta", "diverticulitis", "líquida"],
+    "sistemas": ["digestivo","cirugía"]
+  }
+
+  {
+    "id": "DIVERTICULITIS2",
+    "titulo": "Diverticulitis Dieta días 4-10",
+    "ruta": "/dietas_recom/diverticulitis_dieta4-10.txt",
+    "tags": ["dieta", "diverticulitis", "residuos"],
+    "sistemas": ["digestivo","cirugía"]
+  }
+
+  {
+    "id": "DIVERTICULITIS3",
+    "titulo": "Diverticulitis Dieta >10 días",
+    "ruta": "/dietas_recom/diverticulitis_dieta10ymas.txt",
+    "tags": ["dieta", "diverticulitis", "residuos"],
+    "sistemas": ["digestivo","cirugía"]
+  }
 ]
