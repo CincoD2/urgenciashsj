@@ -1,0 +1,128 @@
+from pathlib import Path
+
+html = """<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora IV Convenio Colectivo</title>
+<style>
+:root{--naranja:#f97316;--verde:#10b981;--fondo1:#f0fdfa;--fondo2:#fff7ed}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto;background:linear-gradient(var(--fondo1),var(--fondo2))}
+.container{max-width:1200px;margin:auto;padding:20px}
+header{text-align:center;margin-bottom:20px}
+header img{max-width:220px;width:100%;height:auto;margin-bottom:10px}
+.card{background:#fff;border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:0 4px 10px rgba(0,0,0,.08)}
+.row3{display:flex;gap:14px}
+@media(max-width:900px){.row3{flex-direction:column}}
+.borde-tea{background:#fff7ed}
+.borde-trn{background:#ecfdf5}
+.borde-jfd{background:#1f2937;color:#fff}
+.grid{display:grid;grid-template-columns:1fr 140px;gap:10px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+input,select{padding:10px;border-radius:10px;border:1px solid #e5e7eb;min-height:44px}
+input[readonly]{background:#f1f5f9}
+.total{margin-top:12px;padding:14px;border-radius:14px;font-weight:800;display:flex;justify-content:space-between}
+.total-tea{border:2px solid var(--naranja);color:var(--naranja)}
+.total-trn{border:2px solid var(--verde);color:var(--verde)}
+.total-jfd{border:2px solid #fff}
+.inactive{opacity:.35;pointer-events:none}
+.total-general{background:#000;color:#fff;border-radius:18px;padding:20px;font-size:22px;font-weight:900;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<img src="Logo M SM VS Youtube.png" alt="Sindicato Médico Vinalopó">
+<h1>¿Qué importe cobraré de manera retroactiva con la publicación del IV Convenio Colectivo?</h1>
+<p><strong>Fecha de firma: 15/07/2025</strong></p>
+</header>
+
+<div class="card">
+<label><strong>Selecciona el turno de trabajo</strong></label>
+<select id="turno">
+<option value="TEA">TEA / TEB</option>
+<option value="TRN">TRN / TRD</option>
+<option value="JFD">JFD</option>
+</select>
+<p><strong>Meses computables: 5,5</strong></p>
+</div>
+
+<div class="row3">
+<div class="card borde-tea" id="tea">
+<h3>TEA / TEB</h3>
+<div class="grid">
+<label>Salario base</label><input readonly value="67.42">
+<label>Especialidad</label><input readonly value="83.33">
+<label>Atención ordinaria (h)</label><input type="number" id="tea_ord" value="0">
+<label>Atención festivo (h)</label><input type="number" id="tea_fes" value="0">
+<label>Jefatura laborable (h)</label><input type="number" id="tea_jl" value="0">
+<label>Jefatura festivo (h)</label><input type="number" id="tea_jf" value="0">
+</div>
+<div class="total total-tea"><span>Total TEA</span><span id="totTea">—</span></div>
+</div>
+
+<div class="card borde-trn" id="trn">
+<h3>TRN / TRD</h3>
+<div class="grid">
+<label>Salario base</label><input readonly value="67.42">
+<label><input type="checkbox" id="trnEsp" checked> Especialidad</label><input readonly value="83.33">
+<label>Turnicidad</label><input readonly value="83.33">
+<label>Jefatura laborable (h)</label><input type="number" id="trn_jl" value="0">
+<label>Jefatura festivo (h)</label><input type="number" id="trn_jf" value="0">
+</div>
+<div class="total total-trn"><span>Total TRN</span><span id="totTrn">—</span></div>
+</div>
+
+<div class="card borde-jfd" id="jfd">
+<h3>JFD</h3>
+<div class="grid">
+<label>Salario base</label><input readonly value="67.42">
+<label>Especialidad</label><input readonly value="83.33">
+</div>
+<div class="total total-jfd"><span>Total JFD</span><span id="totJfd">—</span></div>
+</div>
+</div>
+
+<div class="total-general"><span>TOTAL GENERAL ÚNICO</span><span id="totalGen">—</span></div>
+
+<div class="card">
+<h3>Cómo se calculan los importes</h3>
+<p>Salario base: +67,42 €/mes</p>
+<p>Especialidad: +83,33 €/mes</p>
+<p>Turnicidad TRN: +83,33 €/mes</p>
+<p>Atención continuada: +2 €/h laborable · +5,8 €/h festivo</p>
+<p>Jefatura: +1 €/h laborable · +2,9 €/h festivo</p>
+</div>
+</div>
+
+<script>
+const MESES=5.5;
+const eur=n=>n.toLocaleString('es-ES',{style:'currency',currency:'EUR'});
+const cards={TEA:tea,TRN:trn,JFD:jfd};
+
+function calc(){
+const teaTot=(67.42+83.33)*MESES + tea_ord.value*2 + tea_fes.value*5.8 + tea_jl.value*1 + tea_jf.value*2.9;
+const trnTot=(67.42+(trnEsp.checked?83.33:0)+83.33)*MESES + trn_jl.value*1 + trn_jf.value*2.9;
+const jfdTot=(67.42+83.33)*MESES;
+totTea.textContent=eur(teaTot);
+totTrn.textContent=eur(trnTot);
+totJfd.textContent=eur(jfdTot);
+totalGen.textContent=eur(turno.value==='TEA'?teaTot:turno.value==='TRN'?trnTot:jfdTot);
+}
+function lock(){
+Object.keys(cards).forEach(k=>cards[k].classList.toggle('inactive',k!==turno.value));
+calc();
+}
+turno.onchange=lock;
+document.querySelectorAll('input').forEach(i=>i.oninput=calc);
+lock();
+</script>
+</body>
+</html>
+"""
+
+path = Path("/mnt/data/calculadora_iv_convenio.html")
+path.write_text(html, encoding="utf-8")
+path
