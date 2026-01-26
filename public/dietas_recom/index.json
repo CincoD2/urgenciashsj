@@ -3,27 +3,14 @@
     "id": "ANTICOAGULACIÓN EN FLUTTERFIBRILACI",
     "titulo": "Anticoagulación en flutter/fibrilación",
     "ruta": "/dietas_recom/acods.txt",
-    "tags": [
-      "cardiovascular",
-      "neurológico",
-      "recomendacion",
-      "renal",
-      "anticoagulantes"
-    ],
+    "tags": ["cardiovascular", "neurológico", "recomendacion", "renal", "anticoagulantes"],
     "sistemas": ["cardiovascular", "neurológico", "nefrológico", "hematología"]
   },
   {
     "id": "ASTRINGENTE",
     "titulo": "Astringente",
     "ruta": "/dietas_recom/ASTRINGENTE.txt",
-    "tags": [
-      "digestivo",
-      "recomendacion",
-      "diarrea",
-      "colitis",
-      "enteritis",
-      "enterocolitis"
-    ],
+    "tags": ["digestivo", "recomendacion", "diarrea", "colitis", "enteritis", "enterocolitis"],
     "sistemas": ["digestivo"]
   },
   {
@@ -234,6 +221,49 @@
     "ruta": "/dietas_recom/diverticulitis_dieta4-10.txt",
     "tags": ["dieta", "diverticulitis", "residuos"],
     "sistemas": ["digestivo", "cirugía"]
+  },
+
+  {
+    "id": "eco_abd",
+    "titulo": "Ecografía Clínica Abdominal",
+    "ruta": "/dietas_recom/eco_abd.txt",
+    "tags": ["macro", "eco", "vesícula", "pocus"],
+    "sistemas": ["digestivo", "Ecografía"]
+  },
+  {
+    "id": "eco_cardio",
+    "titulo": "Ecocardio Clínica",
+    "ruta": "/dietas_recom/eco_cardio.txt",
+    "tags": ["macro", "eco", "pocus"],
+    "sistemas": ["cardiovascular", "Ecografía"]
+  },
+  {
+    "id": "eco_doppler",
+    "titulo": "Ecografía Clínica Doppler MMII",
+    "ruta": "/dietas_recom/eco_dopplermmii.txt",
+    "tags": ["macro", "vascular", "eco", "pocus", "TVP", "ETEV", "TVS", "Flebitis"],
+    "sistemas": ["cardiovascular", "Ecografía"]
+  },
+  {
+    "id": "eco_fast",
+    "titulo": "Ecografía Clínica EFAST",
+    "ruta": "/dietas_recom/eco_fast.txt",
+    "tags": ["macro", "eco", "efast", "ecofast", "politrauma", "abdomen"],
+    "sistemas": ["trauma", "cirugía", "Ecografía"]
+  },
+  {
+    "id": "eco_pulmon",
+    "titulo": "Ecografía Clínica Pulmonar",
+    "ruta": "/dietas_recom/eco_pulmon.txt",
+    "tags": ["macro", "EAP", "eco", "EFAST", "BLUE", "sliding", "neumotórax"],
+    "sistemas": ["trauma", "cardiovascular", "Ecografía", "neumología"]
+  },
+  {
+    "id": "eco_renovesical",
+    "titulo": "Ecografía Clínica Renovesical",
+    "ruta": "/dietas_recom/eco_renovesical.txt",
+    "tags": ["macro", "eco", "Vejiga", "hidronefrosis", "ectasia", "cru", "anuria", "abdomen"],
+    "sistemas": ["nefrourológico", "nefrológico", "Ecografía"]
   },
 
   {
